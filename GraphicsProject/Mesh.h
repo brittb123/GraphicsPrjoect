@@ -1,6 +1,7 @@
 #pragma once
 #include "gl_core_4_4.h"
 #include "glm/vec4.hpp"
+#include "glm/mat4x4.hpp"
 
 class Mesh
 {
@@ -15,8 +16,13 @@ public:
 public:
 	Mesh();
 	~Mesh();
-
+	void draw();
+	void start();
+	
+	glm::mat4 getTransform() { return m_transform; }
+	void setTransfrom(glm::mat4 Transform) { m_transform = Transform; }
 private:
+	glm::mat4 m_transform;
 	unsigned int m_tricount;
 	unsigned int m_vertexArrayObject, m_vertexBufferObject, m_indexBufferObject;
 };
