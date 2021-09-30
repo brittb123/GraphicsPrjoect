@@ -4,10 +4,11 @@
 #include "glm/ext.hpp"
 #include <iostream>
 
-
+GraphicsEngine::GraphicsEngine() : GraphicsEngine(1280, 720, "Graphics") {};
 
 GraphicsEngine::GraphicsEngine(int width, int height, const char* title)
 {
+	m_world = new World(width, height);
 	m_width = width;
 	m_height = height;
 	m_title = title;
@@ -15,6 +16,7 @@ GraphicsEngine::GraphicsEngine(int width, int height, const char* title)
 
 GraphicsEngine::~GraphicsEngine()
 {
+	delete m_world;
 }
 
 int GraphicsEngine::run()
@@ -58,7 +60,7 @@ int GraphicsEngine::start()
 	}
 
 	// Creates a window
-	m_window = glfwCreateWindow(m_height, m_width, m_title, nullptr, nullptr);
+	m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
 	if (!m_window)
 	{
 		glfwTerminate();
@@ -99,24 +101,7 @@ int GraphicsEngine::start()
 			return -10;
 	}
 
-	// Initialize the quad
-	m_quad.start();
-
-	// Creayes camera transform
-	m_viewMatrix = glm::lookAt
-	(
-		glm::vec3(10.0f, 10.0f, 10.0f),
-		glm::vec3(0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f)
-	);
-	m_projectionMatrix = glm::perspective
-	(
-		glm::pi<float>() / 4.0f,
-		(float)m_width / (float)m_height,
-		0.001f,
-		1000.0f
-	);
-	
+	m_world->start();
 	return 0;
 }
 
@@ -136,10 +121,10 @@ int GraphicsEngine::draw()
 
 	m_shader.bind();
 
-	glm::mat4 projectionViewModel = m_projectionMatrix * m_viewMatrix * m_quad.getTransform();
+	glm::mat4 projectionViewModel = m_world->getProjectionViewModel();
 	m_shader.bindUniform("projectionViewModel", projectionViewModel);
 
-	m_quad.draw();
+	m_world->draw();
 
 	glfwSwapBuffers(m_window);
 

@@ -1,14 +1,14 @@
 #pragma once
 #include "Shader.h"
-#include "Mesh.h"
 #include "glm/mat4x4.hpp"
-
+#include "World.h"
 struct GLFWwindow;
 
 class GraphicsEngine
 {
 public:
 	GraphicsEngine(int width, int height, const char* title);
+	GraphicsEngine();
 	~GraphicsEngine();
 
 	int run();
@@ -27,9 +27,7 @@ private:
 	const char* m_title;
 
 	aie::ShaderProgram m_shader;
-	Mesh m_quad;
-	
-	glm::mat4 m_viewMatrix;
-	glm::mat4 m_projectionMatrix;
+
+	World* m_world;
 };
 

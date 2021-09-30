@@ -2,7 +2,7 @@
 
 int main() 
 {
-	GraphicsEngine* engine = new GraphicsEngine(1280, 720, "Graphics");
+	GraphicsEngine* engine = new GraphicsEngine();
 
 	int exitcode = engine->run();
 

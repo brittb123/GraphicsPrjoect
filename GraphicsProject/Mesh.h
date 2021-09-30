@@ -16,8 +16,11 @@ public:
 public:
 	Mesh();
 	~Mesh();
+
 	void draw();
 	void start();
+
+	void generateVertices(Vertex* vertices, int& vertexCount);
 	
 	glm::mat4 getTransform() { return m_transform; }
 	void setTransfrom(glm::mat4 Transform) { m_transform = Transform; }
