@@ -109,6 +109,8 @@ int GraphicsEngine::update()
 {	
 	if (!m_window) return -4;
 
+	m_world->update();
+
 	glfwPollEvents();	
 	return 0;
 }
@@ -134,6 +136,8 @@ int GraphicsEngine::draw()
 int GraphicsEngine::end()
 {
 	if (!m_window) return -6;
+
+	m_world->end();
 
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
