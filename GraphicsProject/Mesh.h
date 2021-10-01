@@ -20,7 +20,7 @@ public:
 	void draw();
 	void start();
 
-	void generateVertices(Vertex* vertices, int& vertexCount);
+	virtual Vertex* generateVertices(unsigned int& vertexCount, unsigned int& triCount) = 0;
 	
 	glm::mat4 getTransform() { return m_transform; }
 	void setTransfrom(glm::mat4 Transform) { m_transform = Transform; }

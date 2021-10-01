@@ -10,8 +10,9 @@ World::World(int width, int height)
 void World::start()
 {
 	// Initialize the quad
+	m_quad.setTransfrom(glm::mat4(10.0f));
 	m_quad.start();
-
+	
 	// Creayes camera transform
 	m_viewMatrix = glm::lookAt
 	(
