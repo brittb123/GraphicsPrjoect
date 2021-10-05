@@ -2,6 +2,8 @@
 #include "Quad.h"
 #include "glm/mat4x4.hpp"
 #include "Camera.h"
+#include "Shader.h"
+
 class World
 {
 public:
@@ -10,10 +12,10 @@ public:
 
 	void start();
 	void update();
-	void draw();
+	void draw(aie::ShaderProgram* shader);
 	void end();
 
-	glm::mat4 getProjectionViewModel();
+	glm::mat4 getProjectionView();
 
 private:
 	int m_width = 1280, m_height = 720;

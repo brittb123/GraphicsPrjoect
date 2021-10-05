@@ -2,7 +2,7 @@
 #include "gl_core_4_4.h"
 #include "glm/vec4.hpp"
 #include "glm/mat4x4.hpp"
-
+#include "Shader.h"
 class Mesh
 {
 public: 
@@ -10,6 +10,7 @@ public:
 	{
 		glm::vec4 position;
 		glm::vec4 color;
+		glm::vec4 normal;
 	};
 
 
@@ -17,7 +18,7 @@ public:
 	Mesh();
 	~Mesh();
 
-	void draw();
+	void draw(aie::ShaderProgram* shader);
 	void start();
 
 	virtual Vertex* generateVertices(unsigned int& vertexCount, unsigned int& triCount) = 0;

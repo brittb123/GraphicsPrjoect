@@ -88,6 +88,18 @@ void Mesh::start()
 		(void*)sizeof(glm::vec4)	// Memory position of this attribute
 	);
 
+	//Enabale vertex normal as third attribute
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(
+		2,								// Attribute index
+		4,								// Number of values in attribute
+		GL_FLOAT,						// Type of each value
+		GL_TRUE,						// Whether to normalize
+		sizeof(Vertex),					// Size in byts of one vertex
+		(void*)(sizeof(glm::vec4) * 2)  // Memory position of this attribute
+	);
+
+
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -95,9 +107,9 @@ void Mesh::start()
 	delete[] vertices;
 }
 
-
-void Mesh::draw()
+void Mesh::draw(aie::ShaderProgram* shader)
 {
+	shader->bindUniform("modelMatrix", m_transform);
 	glBindVertexArray(m_vertexArrayObject);
 	glDrawArrays(GL_TRIANGLES, 0, m_tricount * 3);
 }
