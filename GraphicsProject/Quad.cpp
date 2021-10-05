@@ -30,7 +30,5 @@ Quad::Vertex* Quad::generateVertices(unsigned int& vertexCount, unsigned int& tr
 		vertices[i].color = m_color;
 	}
 
-	vertices[0].color = { 1.0f, 0.0f, 0.0f, 1.0f };
-	vertices[5].color = { 0.8f, 0.8f, 0.0f, 1.0f };
 	return vertices;
 }
