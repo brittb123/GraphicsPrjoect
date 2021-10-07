@@ -31,11 +31,11 @@ void main()
 
 	// Color = ambientColor + diffuseColor + specularColor
 	// Calculate ambient color
-	vec4 ambientColor = vec4(Ka, 1.0f) * lightAmbient;
+	vec4 ambientColor = fColor * vec4(Ka, 1.0f) * lightAmbient;
 
 	// Calculate diffuse color
 	float lambertTerm = max(0, min(1, dot(-lightNormal, surfaceNormal)));
-	vec4 diffuseColor = vec4(Kd, 1.0f) * lightDiffuse * lambertTerm;
+	vec4 diffuseColor = fColor * vec4(Kd, 1.0f) * lightDiffuse * lambertTerm;
 
 	// Calculate the specular color
 	vec3 surfaceToView = normalize(cameraPosition.xyz - fPosition.xyz);
@@ -43,7 +43,7 @@ void main()
 	float specularTerm = dot(surfaceToView, reflectionNormal);
 	specularTerm = max(0.0f, specularTerm);
 	specularTerm = pow(specularTerm, specularPower);
-	vec4 specularColor = vec4(Ks, 1) * lightSpecular * specularTerm;
+	vec4 specularColor = fColor * vec4(Ks, 1) * lightSpecular * specularTerm;
 		
 	Fragcolor = ambientColor + diffuseColor + specularColor;
 }
