@@ -9,6 +9,9 @@ World::World(int width, int height)
 }
 void World::start()
 {
+	// Initialize the OBJ mesh
+	m_objmesh.load("Dragon.obj", false);
+
 	// Initialize the quad
 	m_quad.setTransfrom(glm::mat4(10.0f));
 	m_quad.start();
@@ -65,7 +68,7 @@ void World::update(double deltaTime)
 	if (deltaMouseX != 0.0 && deltaMouseY != 0.0) 
 	{
 		Transform cameraTransform = m_camera.getTransform();
-		cameraTransform.rotate(glm::vec3(deltaMouseY, deltaMouseY, 0.0f) * (float)(deltaTime * cameraSensitivity));
+		cameraTransform.rotate(glm::vec3(deltaMouseY, deltaMouseX, 0.0f) * (float)(deltaTime * cameraSensitivity));
 		m_camera.setTransform(cameraTransform);
 	}
 	
@@ -142,8 +145,10 @@ void World::draw(aie::ShaderProgram* shader)
 	shader->bindUniform("lightDiffuse", m_light.getDiffuse());
 	shader->bindUniform("lightSpecular", m_light.getSpecular());
 	shader->bindUniform("cameraPosition", m_camera.getTransform().getPosition());
-	shader->bindUniform("specularPower", m_light.getSpecularPower());
-	m_quad.draw(shader);
+	shader->bindUniform("lightSpecularPower", m_light.getSpecularPower());
+	//m_quad.draw(shader);
+	shader->bindUniform("modelMatrix", m_objTransform);
+	m_objmesh.draw();
 }
 
 void World::end()
