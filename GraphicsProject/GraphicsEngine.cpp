@@ -26,6 +26,10 @@ int GraphicsEngine::run()
 {
 	int exitCode = 0;
 
+	double currentTime = 0.0f;
+	double previousTime = 0.0f;
+	double deltaTime = 0.0f;
+
 	// Start
 	exitCode = start();
 	if (exitCode) 
@@ -34,8 +38,18 @@ int GraphicsEngine::run()
 	}
 
 	//Update
-	while (!getGameOver()) {
-		exitCode = update();
+	while (!getGameOver()) 
+	{
+	    // Get the current time
+		currentTime = glfwGetTime();
+
+	    // Find the change in time
+		deltaTime = currentTime - previousTime;
+
+		// Store the current time for the next loop
+		previousTime = currentTime;
+
+		exitCode = update(deltaTime);
 		if (exitCode)
 			return exitCode;
 
@@ -104,15 +118,17 @@ int GraphicsEngine::start()
 			return -10;
 	}
 
+	m_world->setWindow(m_window);
+
 	m_world->start();
 	return 0;
 }
 
-int GraphicsEngine::update()
+int GraphicsEngine::update(double deltaTime)
 {	
 	if (!m_window) return -4;
 
-	m_world->update();
+	m_world->update(deltaTime);
 
 	glfwPollEvents();	
 	return 0;
