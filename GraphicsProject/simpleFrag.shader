@@ -1,10 +1,13 @@
 // A simple fragment shader
 #version 410
 
-in vec4 color;
-out vec4 Fragcolor;
+in vec4 fColor;
+in vec2 fTexCoord;
+out vec4 pColor;
+
+uniform sampler2D diffuseTexture;
 
 void main() 
 {
-	Fragcolor = color;
+	pColor = fColor * texture(diffuseTexture, fTexCoord);
 }

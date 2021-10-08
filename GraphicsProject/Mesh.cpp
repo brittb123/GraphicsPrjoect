@@ -88,6 +88,18 @@ void Mesh::start()
 		(void*)sizeof(glm::vec4)	// Memory position of this attribute
 	);
 
+	// Enables vertex texCoord as second attribute
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer
+	(
+		2,								// The index of the attribute
+		2,								// The number of values within the attribute
+		GL_FLOAT,						// Type of each value
+		GL_FALSE,						// Determines to normalize
+		sizeof(Vertex),					// Size in bytes of one vertex
+		(void*)(sizeof(glm::vec4) * 2)	// Memory position of this attribute
+	);
+
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
